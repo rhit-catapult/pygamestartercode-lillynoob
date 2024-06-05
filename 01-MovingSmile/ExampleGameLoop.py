@@ -3,6 +3,8 @@
 import pygame
 import sys
 
+import pygame
+
 # Let's turn pygame ON
 pygame.init()
 
