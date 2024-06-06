@@ -65,10 +65,10 @@ def sequences():
 
     my_list.append(1000)
     print(my_list)
-
+    my_list.
     my_list.pop()
     print(my_list)
-
+    my_list.
     my_list.sort()
     print(my_list)
 
