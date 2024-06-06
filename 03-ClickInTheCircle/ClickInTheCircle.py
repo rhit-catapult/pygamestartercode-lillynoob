@@ -11,7 +11,10 @@ def distance(point1, point2):
     # TODO 4: Return the actual distance between point 1 and point 2.
     #  Hint: you will need the math library for the sqrt function.
     #       distance = sqrt(   (delta x) ** 2 + (delta y) ** 2  )
-    return 0
+    delta_x = point2_x - point1_x
+    delta_y = point2_y - point1_y
+    result = math.sqrt((delta_x**2) + (delta_y**2))
+    return result
 
 
 def main():
@@ -20,8 +23,8 @@ def main():
     pygame.display.set_caption("Mouse click positions")
     font = pygame.font.Font(None, 25)
 
-    # TODO 8: Load the "drums.wav" file into the pygame music mixer
-
+    # DONE 8: Load the "drums.wav" file into the pygame music mixer
+    drums = pygame.mixer.Sound("drums.wav")
     instruction_text = 'Click in the circle'
     text_color = (222, 222, 0)
     instructions_image = font.render(instruction_text, True, text_color)
@@ -31,7 +34,7 @@ def main():
     circle_radius = 50
     circle_border_width = 3
 
-    message_text = ''
+    message_text = instruction_text
 
     while True:
 
@@ -39,23 +42,33 @@ def main():
             if event.type == pygame.QUIT:
                 sys.exit()
 
-            # TODO 2: For a MOUSEBUTTONDOWN event get the click position.
-                # TODO 3: Determine the distance between the click position and the circle_center using the distance
-                # TODO 3:   function and save the result into a variable called distance_from_circle
-                # TODO 5: If distance_from_circle is less than or equal to circle_radius, set message_text to 'Bullseye!'
-                # TODO 5: If distance_from_circle is greater than the circle_radius, set the message_text to 'You missed!'
-                # TODO 9: Start playing the music mixer looping forever if the click is within the circle
-                # TODO 10: Stop playing the music if the click is outside the circle
+            # DONE 2: For a MOUSEBUTTONDOWN event get the click position.
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                click_pos = event.pos
+                if distance(click_pos,circle_center) <= circle_radius:
+                    drums.play()
+                    message_text = "Bullseye!"
+                else:
+                    drums.stop()
+                    message_text = 'You missed!'
+                # Done 3: Determine the distance between the click position and the circle_center using the distance
+                # Done 3:   function and save the result into a variable called distance_from_circle
+
+                # DONE 5: If distance_from_circle is less than or equal to circle_radius, set message_text to 'Bullseye!'
+                # DONE 5: If distance_from_circle is greater than the circle_radius, set the message_text to 'You missed!'
+
+                # DONE 9: Start playing the music mixer looping forever if the click is within the circle
+                # DONE 10: Stop playing the music if the click is outside the circle
 
         screen.fill(pygame.Color("Black"))
 
-        # TODO 1: Draw the circle using the screen, circle_color, circle_center, circle_radius, and circle_border_width
-
-        # TODO 6: Create a text image (render the text) based on the message_text with the color (122, 237, 201)
-
+        # DONE 1: Draw the circle using the screen, circle_color, circle_center, circle_radius, and circle_border_width
+        pygame.draw.circle(screen, circle_color, circle_center, circle_radius, circle_border_width)
+        # DONE 6: Create a text image (render the text) based on the message_text with the color (122, 237, 201)
+        caption1 = font.render(message_text, True, (122, 237, 201))
         screen.blit(instructions_image, (25, 25))
         # TODO 7: Draw (blit) the message to the user that says 'Bullseye!' or 'You missed!'
-
+        screen.blit(caption1, (30,250))
         pygame.display.update()
 
 
