@@ -29,9 +29,9 @@ def main():
         if pressed_keys[pygame.K_RIGHT]:
             x += 1
         if pressed_keys[pygame.K_z]:
-            z += 0.5
+            z += 0.8
         if pressed_keys[pygame.K_x]:
-            z -= 0.5
+            z -= 0.8
         screen.fill((255, 255, 255))  # white
 
         # API --> pygame.draw.circle(screen, color, (x, y), radius, thickness)
